@@ -51,7 +51,7 @@ example
 ./Eccentricmain.cpp 10 21(it is almost 30 degree) 5
 ```
 
-result : clear
+result : clean
 
 example
 
@@ -59,4 +59,4 @@ example
 ./Eccentricmain.cpp 10 21(it is almost 30 degree) 11
 ```
 
-result : collision
+result : Collision detected
