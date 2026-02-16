@@ -3,17 +3,18 @@
 
 int main(int argc, char * argv[]){
 
-	//example float r = 10f;
-	float r = 10.0f;
+	//example float r = first argument float;
+	float r = stof(argv[1]);
 	Eccentric eccentric(r);
-	//example seta is 30 degree index is 21
-	int index = 21;
+	//example seta is second argument int;
+	int index = stoi(argv[2]);
+
 	float object_dist = eccentric.getTableValue(index);
 
 	cout << "enermy status" <<  object_dist << endl;
 
-	//example object_dist = 5.0f
-	float detect_dist = 5.0f;
+	//example object_dist third argument float;
+	float detect_dist = stof(argv[3]);
 
 	if(detect_dist > object_dist){
 		cout << "Collision detected" << endl;
