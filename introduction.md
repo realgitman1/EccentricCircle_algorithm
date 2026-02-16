@@ -1,4 +1,4 @@
-# 🦋 K-Boundary: Geometric Interpretation & Implementation
+# K-Boundary: Geometric Interpretation & Implementation
 
 This project introduces a $\pi$-free geometric model based on the **Eccentric Observer Theory**. We derive a unique constant $K=0.5$ that optimizes distance calculations in non-center-centric systems.
 
