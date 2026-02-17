@@ -15,7 +15,7 @@ int main(int argc, char * argv[]){
 
 	float r = 10.0f;
 	
-	Eccentric k_circle(r); 
+	Eccentric k_circle; 
 	
 	float x = 5.0f;
 	float y = 5.0f;

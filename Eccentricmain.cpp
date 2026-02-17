@@ -3,7 +3,7 @@
 
 int main(int argc, char * argv[]){
 
-	Eccentric eccentric(r);
+	Eccentric eccentric;
 	//example seta is second argument int;
 	int index = stoi(argv[2]);
 
