@@ -1,62 +1,59 @@
-# K-Boundary: High-Performance Observer-Centric Geometry
+# EccentricCircle_algorithm
 
-**A Lightweight C++ Library for Fast Circular Boundary Detection without `sqrt()` or `atan2()`.**
+This project implements a high-performance collision detection algorithm based on the **Eccentric Observer Model**. By redefining circular geometry through the lens of a shifted observer, we achieve constant-time collision checks.
 
----
+## Key Feature: $O(1)$ Collision Detection
 
-## Overview
+The most significant advantage of this algorithm is its ability to perform collision detection in **Constant Time $O(1)$**.
 
-**K-Boundary** is a geometry optimization library designed for real-time systems, game engines, and robotics. While traditional geometry calculates distances from the center, this library focuses on the **Eccentric Observer**—the "displaced observer" within a circle.
+- **Elimination of Sqrt:** Traditional Euclidean distance checks require $O(n)$ or expensive square root/trigonometric operations per check.
+- **LUT-Based Logic:** Our method utilizes a Pre-calculated Lookup Table (LUT) based on the eccentric distance function.
+- **Bit-masking Optimization:** By using bit-wise operations (`& 511`) for index mapping, the algorithm bypasses the overhead of standard mathematical functions, making it ideal for high-frequency physics engines and low-power embedded systems.
 
-By leveraging the **K-Constant (K=0.5)** discovered through the derivative of the eccentric distance function $c(\theta)$, we provide a pre-computed lookup table (LUT) that allows for O(1) distance queries.
+------
 
-####Why use K-Boundary?
+## Mathematical Background
 
-* **Zero Runtime Sqrt:** Eliminates expensive square root operations in collision loops.
-* **Observer-Centric:** Perfect for LiDAR/Sensor offset compensation.
-* **Bit-Shift Optimized:** Designed with power-of-two resolutions for maximum CPU throughput.
+### The P-O-Q Relationship
 
----
+- **$O$ (Center):** The fixed origin of the circle.
+- **$P$ (Observer):** The eccentric point shifted by $k$.
+- **$Q$ (Boundary):** A point on the circumference.
+- **$k$ (Normalized Eccentricity):** $k = \frac{OP}{R}$.
 
-## The Mathematical Insight
+### The K-Constant: $S/A$ Ratio
 
-This project redefines the circle as a dynamic set of variations. By analyzing the derivative of the distance $c'(\theta)$ from an offset $k$, we identified a **Critical Point ($k \approx 0.707$)** where the dynamic energy constant **$K$ equals exactly 0.5**.
+We define **$K$** as the ratio between the **Fluctuation Energy ($S$)** and the **Static Area ($A$)**:
 
+$$K = \frac{S}{A} = \frac{\int_{0}^{2\pi} \frac{1}{2} [C'(\theta)]^2 \, d\theta}{\pi R^2}$$
 
+Through this model, we discovered that **$K=1/2$** is a unique "Circular Identity" that occurs at the critical threshold of $k = 1/\sqrt{2}$.
 
----
+------
 
-## Performance Benchmark
+## Performance Comparison
 
-| Method | Operations | Relative Speed |
-| :--- | :--- | :--- |
-| **Standard (Euclidean)** | `sqrt`, `pow`, `atan2` | 1x (Baseline) |
-| **K-Boundary (Ours)** | **Memory Lookup + Multiply** | **1.5 xFaster** |
+| **Algorithm**          | **Complexity**           | **Primary Operation**     | **Accuracy**        |
+| ---------------------- | ------------------------ | ------------------------- | ------------------- |
+| **Standard Euclidean** | $O(1)$ (High Latency)    | `sqrt(x^2 + y^2)`         | High                |
+| **AABB / Shadow**      | $O(1)$ (Low Latency)     | Comparison (`if`)         | Low (Rectangular)   |
+| **Minkowski (GJK)**    | Iterative                | Vector Searching          | Very High           |
+| **K-Boundary (Ours)**  | **$O(1)$ (Low Latency)** | **LUT Lookup + Bit-mask** | **High (Circular)** |
 
+------
 
+## Usage
 
-## Installation
-
-Simply git clone all files into your project.
-
-```cpp
-./Eccentricmain.cpp radius index_n detectdist
-```
-
-*index n is the number of (360 / 512) * n
-
-example
-
-```
-./Eccentricmain.cpp 10 21(it is almost 30 degree) 5
-```
-
-result : clean
-
-example
+C++
 
 ```
-./Eccentricmain.cpp 10 21(it is almost 30 degree) 11
+#include "Eccentric.hpp"
+
+Eccentric eccentric; 
+float radius = 10.0f;
+int index = 43; // 30 degrees
+
+// Instant O(1) Boundary check
+float boundary_dist = eccentric.getTableValue(index) * radius;
 ```
 
-result : Collision detected
