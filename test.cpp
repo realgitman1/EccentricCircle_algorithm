@@ -31,7 +31,7 @@ int main(int argc, char * argv[]){
         // 2. K-Boundary Method (LUT)
         auto start2 = std::chrono::high_resolution_clock::now();
         for (int i = 0; i < iterations; ++i) {
-		float res2 = k_circle.getTableValue(i, r); 
+		float res2 = k_circle.getTableValue(r, i); 
 		DoNotOptimize(res);
         }
         auto end2 = std::chrono::high_resolution_clock::now();
