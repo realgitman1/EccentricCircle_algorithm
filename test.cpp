@@ -21,7 +21,6 @@ int main(int argc, char * argv[]){
 	float y = 5.0f;
 			// 1. Standard Method (sqrt)
 	auto start1 = std::chrono::high_resolution_clock::now();
-        volatile float dummy1;
         for (int i = 0; i < iterations; ++i) {
 		float res = std::sqrt(x * x + y * y)
 		DoNotOptimize(res);
@@ -31,7 +30,6 @@ int main(int argc, char * argv[]){
 	
         // 2. K-Boundary Method (LUT)
         auto start2 = std::chrono::high_resolution_clock::now();
-        volatile float dummy2;
         for (int i = 0; i < iterations; ++i) {
 		float res2 = k_circle.getTableValue(i, r); 
 		DoNotOptimize(res);
