@@ -32,7 +32,7 @@ int main(int argc, char * argv[]){
         auto start2 = std::chrono::high_resolution_clock::now();
         for (int i = 0; i < iterations; ++i) {
 		float res2 = k_circle.getTableValue(r, i); 
-		DoNotOptimize(res);
+		DoNotOptimize(res2);
         }
         auto end2 = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> diff2 = end2 - start2;
