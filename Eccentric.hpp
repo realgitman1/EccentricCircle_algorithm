@@ -25,8 +25,8 @@ public:
 		}
 	}
 
-        float getTableValue(int index, float r) const {
-        	return (c_table[index & 511] * r);
+        float getTableValue(float r, int index) const {
+        	return (r*(c_table[index & 511]));
 	}
 };
 #endif
