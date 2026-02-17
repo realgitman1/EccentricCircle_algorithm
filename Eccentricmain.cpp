@@ -4,13 +4,13 @@
 int main(int argc, char * argv[]){
 
 	Eccentric eccentric;
-	//example seta is second argument int;
-	int index = stoi(argv[2]);
-
 	//example float r = first argument float;
 	float r = stof(argv[1]);
 	
-	float object_dist = eccentric.getTableValue(index,r);
+	//example seta is second argument int;
+	int index = stoi(argv[2]);
+
+	float object_dist = eccentric.getTableValue(r, index);
 
 	cout << "enermy status" <<  object_dist << endl;
 
