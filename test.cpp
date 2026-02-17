@@ -23,7 +23,7 @@ int main(int argc, char * argv[]){
 	auto start1 = std::chrono::high_resolution_clock::now();
         volatile float dummy1;
         for (int i = 0; i < iterations; ++i) {
-		dummy1 = std::sqrt(x * x + y * y)
+		float res = std::sqrt(x * x + y * y)
 		DoNotOptimize(res);
 	}
         auto end1 = std::chrono::high_resolution_clock::now();
@@ -33,7 +33,7 @@ int main(int argc, char * argv[]){
         auto start2 = std::chrono::high_resolution_clock::now();
         volatile float dummy2;
         for (int i = 0; i < iterations; ++i) {
-		dummy2 = k_circle.getTableValue(i, r); 
+		float res2 = k_circle.getTableValue(i, r); 
 		DoNotOptimize(res);
         }
         auto end2 = std::chrono::high_resolution_clock::now();
