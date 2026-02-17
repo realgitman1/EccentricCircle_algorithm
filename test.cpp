@@ -1,4 +1,4 @@
-#include "Eccentric.hpp"
+:include "Eccentric.hpp"
 #include <iostream>
 #include <chrono>
 
@@ -28,7 +28,7 @@ int main(int argc, char * argv[]){
         volatile float dummy2;
         for (int i = 0; i < iterations; ++i) {
         
-		dummy2 = k_circle.getTableValue(i); 
+		dummy2 = k_circle.getTableValue(i, r); 
         }
         auto end2 = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> diff2 = end2 - start2;

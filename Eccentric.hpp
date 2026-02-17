@@ -12,7 +12,7 @@ private:
 	array<float, 512> c_table;
 
 public:
-	Eccentric(float r){
+	Eccentric(){
 
 		const float STEP = (2.0f * 3.1415926535f) / 512;
 		for(int i=0; i<512; i++){
@@ -20,13 +20,13 @@ public:
 			float theta = i * STEP;
 			float cost_t = cos(theta);
 			float sin_t = sin(theta);
-			c_table[i] = r * (k * cos(theta) + sqrt(1.0f - (k*k*sin_t*sin_t)));
+			c_table[i] = (k * cos(theta) + sqrt(1.0f - (k*k*sin_t*sin_t)));
 		
 		}
 	}
 
-        float getTableValue(int index) const {
-        	return c_table[index & 511];
+        float getTableValue(int index, float r) const {
+        	return (c_table[index & 511] * r);
 	}
 };
 #endif
